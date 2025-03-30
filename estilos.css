@@ -158,21 +158,21 @@ footer {
 
     /* Bandera en dispositivos móviles: Cambiar la posición */
     .bandera {
-        width: 50px;
-        height: 30vh;
-        top: 10px;  /* Colocar la bandera un poco más arriba */
+        width: 40px;
+        height: 25vh;
+        top: 5px;  /* Colocar la bandera un poco más arriba */
         z-index: -1;
     }
 
     /* Ajustes en el pie de página */
     footer {
-        font-size: 0.8em;
-        margin-top: 20px;
+        font-size: 1.4em;
+        margin-top: 50px;
     }
 
     /* Separar más los textos y mejorar su legibilidad */
     .container p {
         font-size: 1em;
-        margin-bottom: 15px;
+        margin-bottom: 30px;
     }
 }
