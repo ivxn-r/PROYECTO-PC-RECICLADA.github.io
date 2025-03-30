@@ -110,69 +110,25 @@ footer {
     font-size: 0.8em;
 }
 
-/* Responsividad para dispositivos móviles */
+/* Ocultar las banderas en móviles */
 @media only screen and (max-width: 768px) {
-    body {
-        padding: 0;
-        background-color: #fff;
-    }
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    h2 {
-        font-size: 1.4em;
-        margin-top: 10px;
-    }
-
-    h3 {
-        font-size: 1.8em;
-    }
-
-    .container {
-        width: 100%;
-        padding: 10px;
-        margin-top: 15px;
-    }
-
-    .container p {
-        font-size: 1em;
-        line-height: 1.5;
-        text-align: justify;
-        margin-bottom: 15px;
-    }
-
-    /* Reorganizar imágenes en móviles */
-    .imagenes-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
-        width: 90%;
-        max-width: 280px;
-        margin: 15px 0;
-    }
-
-    /* Bandera en dispositivos móviles: Cambiar la posición */
     .bandera {
-        width: 40px;
-        height: 25vh;
-        top: 5px;  /* Colocar la bandera un poco más arriba */
-        z-index: -1;
+        display: none;  /* Oculta las banderas en móviles */
+    }
+}
+
+/* Añadir banderas al final en móviles */
+@media only screen and (max-width: 768px) {
+    .footer-flags {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
     }
 
-    /* Ajustes en el pie de página */
-    footer {
-        font-size: 1.4em;
-        margin-top: 50px;
-    }
-
-    /* Separar más los textos y mejorar su legibilidad */
-    .container p {
-        font-size: 1em;
-        margin-bottom: 30px;
+    .footer-flags img {
+        width: 40px;  /* Tamaño reducido de las banderas al final de la página */
+        height: auto;
+        margin: 0 10px;  /* Espacio entre las banderas */
     }
 }
