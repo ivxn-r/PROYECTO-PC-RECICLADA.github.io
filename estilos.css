@@ -1,31 +1,98 @@
+/* Nuevas animaciones */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Cambiar las animaciones para que sean más suaves */
 h1 {
-    font-family: 'Lobster', cursive;   /* Fuente personalizada */
-    font-size: 3em;                    /* Tamaño del texto */
-    color: #0038A8;                    /* Color de texto */
-    text-align: center;                /* Alineación centrada */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);  /* Sombra de texto */
-    text-transform: uppercase;         /* Todo en mayúsculas */
-    letter-spacing: 2px;               /* Espaciado entre letras */
-    font-weight: bold;                 /* Texto en negrita */
-
-/* Bandera de Paraguay */
-.bandera {
-    position: absolute;
-    top: 0;
-    width: 80px; /* Ajusta el tamaño de la bandera */
-    height: 100vh; /* Hace que la bandera ocupe toda la altura de la ventana */
-    z-index: -1; /* Coloca las banderas detrás del contenido */
-    object-fit: cover;
+    font-family: 'Lobster', cursive;
+    font-size: 3em;
+    color: #0038A8;
+    text-align: center;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    animation: slideIn 1.5s ease-out;
 }
 
-/* Bandera izquierda */
-.left-flag {
-    left: 0;
+h2, h3 {
+    animation: fadeIn 2.5s ease-in-out;
 }
 
-/* Bandera derecha */
-.right-flag {
-    right: 0;}
-footer p {
-    font-size: 0.9em; /* Reduje el tamaño del texto solo en el footer */
+.container {
+    animation: scaleUp 1.5s ease-in-out;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media only screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .container p {
+        font-size: 1em;
+    }
+
+    .imagenes-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
+        width: 80%;
+        max-width: 300px;
+        margin: 10px 0;
+        float: none;
+    }
+
+    .bandera {
+        width: 60px;
+        height: 50vh; /* Bandera más pequeña para dispositivos móviles */
+        z-index: -1;
+    }
 }
