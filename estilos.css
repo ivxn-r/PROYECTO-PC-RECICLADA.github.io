@@ -30,7 +30,7 @@
     }
 }
 
-/* Cambiar las animaciones para que sean más suaves */
+/* Animaciones ajustadas */
 h1 {
     font-family: 'Lobster', cursive;
     font-size: 3em;
@@ -51,48 +51,84 @@ h2, h3 {
     animation: scaleUp 1.5s ease-in-out;
 }
 
-/* Ajustes para pantallas más pequeñas */
+/* Ajustes para pantallas pequeñas */
 @media only screen and (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 0;
+        margin: 0;
+        background-color: #fff;
     }
 
     h1 {
-        font-size: 2em;
+        font-size: 2.5em;  /* Aumentar tamaño para un mejor contraste */
     }
 
     h2 {
-        font-size: 1.5em;
+        font-size: 1.4em;
+        margin-top: 10px;
     }
 
     h3 {
-        font-size: 1.5em;
+        font-size: 1.8em;
     }
 
     .container {
         width: 100%;
         padding: 10px;
+        margin-top: 15px;
     }
 
     .container p {
         font-size: 1em;
+        line-height: 1.5;
+        text-align: justify;
+        margin-bottom: 15px;
     }
 
+    /* Ajuste de imágenes para móviles */
     .imagenes-container {
         flex-direction: column;
         align-items: center;
+        gap: 10px;  /* Aumentar el espacio entre las imágenes */
     }
 
     .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
-        width: 80%;
-        max-width: 300px;
-        margin: 10px 0;
-        float: none;
+        width: 90%;  /* Hacer las imágenes más grandes */
+        max-width: 280px;
+        margin: 15px 0;
     }
 
     .bandera {
-        width: 60px;
-        height: 50vh; /* Bandera más pequeña para dispositivos móviles */
+        width: 50px;
+        height: 40vh; /* Hacer bandera aún más pequeña */
         z-index: -1;
+    }
+
+    footer {
+        font-size: 0.8em;
+        margin-top: 20px;
+    }
+
+    /* Reorganizar los elementos de la página */
+    h1, h2, h3 {
+        padding: 5px;
+    }
+
+    /* Optimización del texto en pantallas pequeñas */
+    .container p {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+
+    .imagenes-container {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .bandera.left-flag, .bandera.right-flag {
+        width: 50px;
+        height: 30vh;  /* Reducir más tamaño de la bandera */
     }
 }
