@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='description' content='Proyecto de PC con presupuesto basado en sueldo mínimo'>
+    <title>PROYECTO DE PC SUELDO MÍNIMO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        
+        .bandera {
+            position: fixed;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 1;
+            object-fit: cover;
+        }
+        .left-flag {
+            left: 0;
+        }
+        .right-flag {
+            right: 0;
+        }
+
+        h1 {
+            font-size: 2.5em; 
+            text-align: center;
+            color: #0038A8;
+            text-shadow: 3px 3px #FFCE00;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 1s ease-out;
+        }
+
+        h2 {
+            font-size: 1.2em; 
+            text-align: center;
+            margin-top: 10px;
+            color: #D52B1E;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h3 {
+            font-size: 1.8em; 
+            text-align: center;
+            color: #0038A8;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border: 2px solid #0038A8;
+            position: relative;
+            z-index: 2;
+            animation: scaleUp 1.5s ease-in-out;
+            text-align: center;
+        }
+
+        .container p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: justify;
+            color: #333;
+        }
+
+        .container img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+       
+        .imagenes-container {
+            display: flex;
+            justify-content: space-between;             gap: 20px; 
+            flex-wrap: wrap; 
+        }
+
+        
+        .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
+            width: 40%;
+            max-width: 400px;         }
+
+        footer {
+            margin-top: 20px;
+            color: #0038A8;
+            text-align: center;
+            padding: 05px;
+            animation: fadeIn 3s ease-in;
+        }
+
+                @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsiveness */
+        @media only screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            h3 {
+                font-size: 1.5em;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .container p {
+                font-size: 1em;
+            }
+
+            
+            .imagenes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
+                width: 80%;
+                max-width: 300px;
+                margin: 10px 0;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <img class="bandera left-flag" src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+    
+    
+    <img class="bandera right-flag" src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+
+    <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
+    <h2>Aqui podran descubrir todos los pasos de este proyecto.</h2>
+    <div class='container'>
+        <h3>Historia del Proyecto</h3>
+        <p>Todo comenzó el día en el cual nos pidieron que hiciéramos grupos de tres personas y elegimos un proyecto a realizar. Aquí comienza TODO.
+        Ese día se nos ocurrieron varias cosas, entre las cuales elegimos armar una computadora, pero no una computadora cualquiera... Una computadora con componentes reciclados. Claro, creíamos que sería simple; digo, es solo armar una computadora, pues eso creíamos.
+        Surgieron problemas, fallos, errores... quisimos dejar todo, pero nos recuperamos. En realidad, surgieron otras ideas. Una idea muy loca que teníamos era crear un SISTEMA OPERATIVO ÚNICO. De hecho, nos apuramos tanto con esta idea que hasta se lo dijimos a la profesora. Su reacción fue de sorpresa, pues es algo muy difícil y complicado si no tienes los conocimientos necesarios para esta tarea. Así que pensamos mejor y dijimos: ¿Qué tal si en vez de crear un sistema operativo optimizado, optimizamos un sistema operativo?
+        Hasta ese momento ya teníamos planeado: una PC con materiales reciclados y, además, una guía de optimización. Pero una idea cambiaría todo.
+        ¿Qué tal si todo el proceso lo mostramos en una página web?
+        Así surgió esta pequeña página en la cual mostramos todo el proceso por el cual pasamos.</p>
+
+    
+        <div class="imagenes-container">
+            
+            <img class="pc-img" src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
+            
+            <!-- Imagen del alumno flotando a la izquierda -->
+            <img class="alumno-img" src="imagenes/emoji.jpg" alt="Imagen del alumno">
+            
+           
+    </div>
+    <footer>
+        <p> Desarrollado por los alumnos: Ivan Azuaga, Diego Rojas y Carlos Bernal. - Proyecto Escolar 2025</p>
+    </footer>
+</body>
+</html>
