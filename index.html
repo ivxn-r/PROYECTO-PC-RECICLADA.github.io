@@ -7,7 +7,6 @@
     <title>PROYECTO DE PC SUELDO MÍNIMO</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        
         body {
             font-family: 'Press Start 2P', cursive;
             background-color: #f0f0f0;
@@ -18,208 +17,130 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
+            text-align: center;
             overflow-x: hidden;
+            position: relative;
         }
 
-        
-        .bandera {
+        .flag-container {
             position: fixed;
             top: 0;
-            width: 100px;
-            height: 100%;
-            z-index: 1;
-            object-fit: cover;
+            bottom: 0;
+            width: 60px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 0;
         }
-        .left-flag {
+
+        .flag-container img {
+            width: 50px;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        .left-flags {
             left: 0;
         }
-        .right-flag {
+
+        .right-flags {
             right: 0;
         }
 
         h1 {
-            font-size: 2.5em; 
-            text-align: center;
+            font-size: 1.8em;
             color: #0038A8;
-            text-shadow: 3px 3px #FFCE00;
-            margin-top: 30px;
+            text-shadow: 2px 2px #FFCE00;
+            margin: 20px 10px;
             position: relative;
-            z-index: 2;
-            animation: slideIn 1s ease-out;
+            z-index: 1;
         }
 
         h2 {
-            font-size: 1.2em; 
-            text-align: center;
-            margin-top: 5px;
+            font-size: 1em;
             color: #D52B1E;
-            animation: fadeIn 2s ease-in;
-        }
-
-        h3 {
-            font-size: 1.8em; 
-            text-align: center;
-            color: #0038A8;
-            animation: fadeIn 2s ease-in;
+            margin: 5px 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .container {
             width: 90%;
-            max-width: 1000px;
+            max-width: 600px;
             background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
             border: 2px solid #0038A8;
+            margin-bottom: 20px;
             position: relative;
-            z-index: 2;
-            animation: scaleUp 1.5s ease-in-out;
-            text-align: center;
+            z-index: 1;
         }
 
         .container p {
-            font-size: 1.2em;
-            line-height: 1.6;
+            font-size: 1em;
+            line-height: 1.5;
             text-align: justify;
             color: #333;
         }
 
-        .container img {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-            height: auto;
+        .imagenes-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .imagenes-container img {
+            width: 90%;
+            max-width: 300px;
+            margin: 10px 0;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-       
-        .imagenes-container {
-            display: flex;
-            justify-content: space-between;             gap: 20px; 
-            flex-wrap: wrap; 
-        }
-
-        
-        .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
-            width: 40%;
-            max-width: 400px;         }
-
         footer {
-            margin-top: 20px;
-            color: #0038A8;
-            text-align: center;
-            padding: 05px;
-            animation: fadeIn 3s ease-in;
+            width: 100%;
+            background-color: #0038A8;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 0.8em;
+            position: relative;
+            z-index: 1;
         }
 
-                @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleUp {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* Responsiveness */
-        @media only screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.0em;
-            }
-
-            h3 {
-                font-size: 1.5em;
-            }
-
-            .container {
-                width: 100%;
-            }
-
-            .container p {
-                font-size: 1em;
-            }
-
-            
-            .imagenes-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
-                width: 80%;
-                max-width: 300px;
-                margin: 10px 0;
-                float: none;
-            }
+        .footer-flags img {
+            width: 40px;
+            height: auto;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    
-
+    <div class="flag-container left-flags">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+    </div>
+    <div class="flag-container right-flags">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+    </div>
     <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
-    <h2>Aqui podran descubrir todos los pasos de este proyecto.</h2>
+    <h2>Descubre todos los pasos de este proyecto.</h2>
     <div class='container'>
         <h3>Historia del Proyecto</h3>
-        <p>Todo comenzó el día en el cual nos pidieron que hiciéramos grupos de tres personas y elegimos un proyecto a realizar. Aquí comienza TODO.
-        Ese día se nos ocurrieron varias cosas, entre las cuales elegimos armar una computadora, pero no una computadora cualquiera... Una computadora con componentes reciclados. Claro, creíamos que sería simple; digo, es solo armar una computadora, pues eso creíamos.
-        Surgieron problemas, fallos, errores... quisimos dejar todo, pero nos recuperamos. En realidad, surgieron otras ideas. Una idea muy loca que teníamos era crear un SISTEMA OPERATIVO ÚNICO. De hecho, nos apuramos tanto con esta idea que hasta se lo dijimos a la profesora. Su reacción fue de sorpresa, pues es algo muy difícil y complicado si no tienes los conocimientos necesarios para esta tarea. Así que pensamos mejor y dijimos: ¿Qué tal si en vez de crear un sistema operativo optimizado, optimizamos un sistema operativo?
-        Hasta ese momento ya teníamos planeado: una PC con materiales reciclados y, además, una guía de optimización. Pero una idea cambiaría todo.
-        ¿Qué tal si todo el proceso lo mostramos en una página web?
-        Así surgió esta pequeña página en la cual mostramos todo el proceso por el cual pasamos.</p>
-
-    
+        <p>Aquí va la historia del proyecto.</p>
         <div class="imagenes-container">
-            
-            <img class="pc-img" src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
-            
-            <!-- Imagen del alumno flotando a la izquierda -->
-            <img class="alumno-img" src="imagenes/emoji.jpg" alt="Imagen del alumno">
-            
-           
+            <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
+            <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
+        </div>
     </div>
     <footer>
-    <p>Desarrollado por los alumnos: Ivan Azuaga, Diego Rojas y Carlos Bernal. - Proyecto Escolar 2025</p>
-    
-    <!-- Contenedor de banderas para la versión móvil -->
-    <div class="footer-flags">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
-        <img class="insignia-img" src="imagenes/insignia.png" alt="Instituto">
-    </div>
-</footer>
-
+        <p>Desarrollado por los alumnos: Iván Azuaga, Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
+        <div class="footer-flags">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+        </div>
+    </footer>
 </body>
 </html>

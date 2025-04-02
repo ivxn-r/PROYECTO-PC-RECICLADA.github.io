@@ -30,7 +30,7 @@
     }
 }
 
-/* Estilo general de la página */
+/* Estilo general */
 body {
     font-family: 'Press Start 2P', cursive;
     background-color: #f0f0f0;
@@ -45,38 +45,51 @@ body {
     overflow-x: hidden;
 }
 
-/* Bandera de Paraguay */
-.bandera {
-    position: absolute;
+/* Contenedor de banderas */
+.flag-container {
+    position: fixed;
     top: 0;
-    z-index: -1;
-    object-fit: cover;
+    bottom: 0;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    z-index: 0;
 }
 
-.left-flag {
+.flag-container img {
+    width: 50px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.left-flags {
     left: 0;
 }
 
-.right-flag {
+.right-flags {
     right: 0;
 }
 
+/* Títulos */
 h1 {
-    font-family: 'Lobster', cursive;
-    font-size: 3em;
+    font-size: 2.5em;
     color: #0038A8;
     text-align: center;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 3px 3px #FFCE00;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: bold;
     animation: slideIn 1.5s ease-out;
 }
 
 h2, h3 {
+    font-size: 1.2em;
     animation: fadeIn 2.5s ease-in-out;
 }
 
+/* Contenedor principal */
 .container {
     animation: scaleUp 1.5s ease-in-out;
     background-color: #fff;
@@ -85,39 +98,46 @@ h2, h3 {
     margin: 20px 0;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 1000px;
+    max-width: 600px;
 }
 
-/* Estilo de las imágenes */
+/* Imágenes */
 .imagenes-container {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
-.pc-img, .alumno-img, .patrocinador-img, .nueva-imagen {
-    width: 40%;
-    max-width: 400px;
+.imagenes-container img {
+    width: 90%;
+    max-width: 300px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo del pie de página */
+/* Pie de página */
 footer {
-    margin-top: 20px;
-    color: #0038A8;
-    text-align: center;
-    padding: 5px;
+    width: 100%;
+    background-color: #0038A8;
+    color: #fff;
+    padding: 10px 0;
     font-size: 0.8em;
 }
 
-/* Ocultar las banderas en móviles */
+/* Ocultar banderas en móviles */
 @media only screen and (max-width: 768px) {
-    .bandera {
-        display: none;  /* Oculta las banderas en móviles */
+    .flag-container {
+        display: none;
+    }
+
+    .imagenes-container img {
+        width: 80%;
+        max-width: 300px;
     }
 }
 
-/* Añadir banderas al final en móviles */
+/* Mostrar banderas al final en móviles */
 @media only screen and (max-width: 768px) {
     .footer-flags {
         display: flex;
@@ -127,8 +147,8 @@ footer {
     }
 
     .footer-flags img {
-        width: 40px;  /* Tamaño reducido de las banderas al final de la página */
+        width: 40px;
         height: auto;
-        margin: 0 10px;  /* Espacio entre las banderas */
+        margin: 0 10px;
     }
 }
