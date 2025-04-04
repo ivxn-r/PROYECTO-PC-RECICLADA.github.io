@@ -6,6 +6,39 @@
   <title>PC Sueldo Mínimo</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
+    /* Animaciones */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scaleUp {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* General */
     body {
       font-family: 'Press Start 2P', cursive;
       background-color: #f0f0f0;
@@ -15,24 +48,7 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    .container {
-      padding: 20px;
-      max-width: 600px;
-      margin: 80px auto;
-      background-color: white;
-      border-radius: 10px;
-      border: 2px solid #0038A8;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-      color: #0038A8;
-      text-shadow: 2px 2px #FFCE00;
-      animation: slideIn 1.5s ease-out;
-    }
-
-    /* Botones arriba a la derecha */
+    /* Botones de acción */
     .top-buttons {
       position: fixed;
       top: 10px;
@@ -117,24 +133,47 @@
       color: #FFCE00;
     }
 
-    @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    /* Contenedores */
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: white;
+      border-radius: 10px;
+      border: 2px solid #0038A8;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      animation: scaleUp 1.5s ease-in-out;
     }
 
+    /* Títulos */
+    h1, h2, h3 {
+      text-align: center;
+      color: #0038A8;
+      text-shadow: 2px 2px #FFCE00;
+      animation: slideIn 1.5s ease-out;
+    }
+
+    /* Desplazamiento suave */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Ajuste de visualización en pantallas pequeñas */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        font-size: 18px;
+        padding: 12px 15px;
+      }
+    }
   </style>
 </head>
 <body class="light-mode">
 
   <!-- BOTONES DE ACCIÓN -->
   <div class="top-buttons">
+    <!-- Botón de menú a la derecha -->
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <!-- Botón de tema oscuro/claro -->
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </div>
 
@@ -149,50 +188,44 @@
     </ul>
   </nav>
 
-  <!-- CONTENIDO -->
-<!-- Sección: Inicio -->
-<div class="container" id="inicio">
-  <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
-  <p>¡Bienvenido a nuestro proyecto escolar!</p>
-</div>
-
-<!-- Sección: Historia -->
-<div class="container" id="historia">
-  <h2>Historia del Proyecto</h2>
-  <p>Esta es la historia de cómo iniciamos con la idea de armar una PC basada en el sueldo mínimo...</p>
-</div>
-
-<!-- Sección: Imágenes -->
-<div class="container" id="imagenes">
-  <h2>Galería de imágenes</h2>
-  <div class="imagenes-container">
-    <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
-    <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
+  <!-- SECCIONES -->
+  <div class="container" id="inicio">
+    <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
+    <p>¡Bienvenido a nuestro proyecto escolar!</p>
   </div>
-</div>
 
-<!-- Sección: Video -->
-<div class="container" id="video">
-  <h2>Video del proyecto</h2>
-  <video controls width="100%" style="max-width: 500px; border: 2px solid #0038A8; border-radius: 10px;">
-    <source src="video/proyecto.mp4" type="video/mp4">
-    Tu navegador no soporta el video.
-  </video>
-</div>
+  <div class="container" id="historia">
+    <h2>Historia del Proyecto</h2>
+    <p>Esta es la historia de cómo iniciamos con la idea de armar una PC basada en el sueldo mínimo...</p>
+  </div>
 
-<!-- Sección: Créditos -->
-<footer id="footer">
-  <div class="container">
-    <h2>Créditos</h2>
-    <p>Desarrollado por Iván Azuaga, Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
-    <div class="footer-flags">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay" width="40">
+  <div class="container" id="imagenes">
+    <h2>Galería de imágenes</h2>
+    <div class="imagenes-container">
+      <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
+      <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
     </div>
   </div>
-</footer>
 
+  <div class="container" id="video">
+    <h2>Video del proyecto</h2>
+    <video controls width="100%" style="max-width: 500px; border: 2px solid #0038A8; border-radius: 10px;">
+      <source src="video/proyecto.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+  </div>
 
-  <!-- JS PARA FUNCIONALIDAD -->
+  <footer id="footer">
+    <div class="container">
+      <h2>Créditos</h2>
+      <p>Desarrollado por Iván Azuaga, Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
+      <div class="footer-flags">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay" width="40">
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
   <script>
     function toggleMenu() {
       document.getElementById("sideMenu").classList.toggle("active");
