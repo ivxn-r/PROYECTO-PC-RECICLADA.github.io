@@ -1,304 +1,215 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Proyecto de PC con presupuesto basado en sueldo mínimo">
-    <title>PROYECTO DE PC SUELDO MÍNIMO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        /* ANIMACIONES */
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Sueldo Mínimo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #f0f0f0;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: white;
+      border-radius: 10px;
+      border: 2px solid #0038A8;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        @keyframes scaleUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+    h1 {
+      text-align: center;
+      color: #0038A8;
+      text-shadow: 2px 2px #FFCE00;
+      animation: slideIn 1.5s ease-out;
+    }
 
-        body {
-            font-family: 'Press Start 2P', cursive;
-            background-color: #f0f0f0;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow-x: hidden;
-        }
+    /* Botones arriba a la derecha */
+    .top-buttons {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
 
-        /* MENÚ HAMBURGUESA */
-        .menu-toggle {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            font-size: 2em;
-            cursor: pointer;
-            z-index: 10;
-            color: #0038A8;
-            background-color: white;
-            border: 2px solid #0038A8;
-            border-radius: 5px;
-            padding: 5px 10px;
-            animation: slideIn 1.2s ease-in-out;
-        }
+    .menu-toggle, .theme-toggle {
+      background-color: #0038A8;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      box-shadow: 2px 2px 0px #FFCE00;
+    }
 
-        #sideMenu {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 220px;
-            height: 100%;
-            background-color: #fff;
-            border-right: 3px solid #0038A8;
-            z-index: 9;
-            transition: left 0.3s ease;
-            box-shadow: 2px 0px 10px rgba(0,0,0,0.1);
-        }
+    .menu-toggle:hover, .theme-toggle:hover {
+      background-color: #002060;
+    }
 
-        #sideMenu ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 60px;
-            font-family: 'Press Start 2P', cursive;
-        }
+    /* Menú lateral */
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      right: -220px;
+      height: 100%;
+      width: 200px;
+      background-color: #fff;
+      border-left: 2px solid #0038A8;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out;
+      padding-top: 60px;
+      z-index: 99;
+    }
 
-        #sideMenu ul li {
-            margin: 20px 0;
-            text-align: center;
-        }
+    #sideMenu.active {
+      right: 0;
+    }
 
-        #sideMenu ul li a {
-            text-decoration: none;
-            color: #0038A8;
-            font-size: 0.8em;
-            transition: color 0.2s;
-        }
+    #sideMenu ul {
+      list-style: none;
+      padding: 0;
+    }
 
-        #sideMenu ul li a:hover {
-            color: #D52B1E;
-        }
+    #sideMenu li {
+      margin: 20px;
+    }
 
-        #sideMenu.active {
-            left: 0;
-        }
+    #sideMenu a {
+      text-decoration: none;
+      color: #0038A8;
+      font-size: 12px;
+    }
 
-        /* BOTÓN IR ARRIBA */
-        #scrollTopBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 1.2em;
-            padding: 10px 15px;
-            background-color: #0038A8;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            z-index: 10;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-        }
+    /* Modo oscuro */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
 
-        .flag-container {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            z-index: 0;
-        }
+    body.dark-mode .container {
+      background-color: #1f1f1f;
+      border-color: #444;
+    }
 
-        .flag-container img {
-            width: 50px;
-            height: auto;
-            margin: 10px 0;
-        }
+    body.dark-mode h1 {
+      color: #FFCE00;
+      text-shadow: 2px 2px #0038A8;
+    }
 
-        .left-flags { left: 0; }
-        .right-flags { right: 0; }
+    body.dark-mode #sideMenu {
+      background-color: #1f1f1f;
+      border-color: #FFCE00;
+    }
 
-        h1 {
-            font-size: 2.5em;
-            color: #0038A8;
-            text-align: center;
-            text-shadow: 3px 3px #FFCE00;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: slideIn 1.5s ease-out;
-        }
+    body.dark-mode #sideMenu a {
+      color: #FFCE00;
+    }
 
-        h2, h3 {
-            font-size: 1.2em;
-            animation: fadeIn 2.5s ease-in-out;
-        }
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
 
-        .container {
-            animation: scaleUp 1.5s ease-in-out;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 600px;
-        }
-
-        .container p {
-            text-align: justify;
-            line-height: 1.5;
-        }
-
-        .imagenes-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .imagenes-container img {
-            width: 90%;
-            max-width: 300px;
-            margin: 10px 0;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        footer {
-            width: 100%;
-            background-color: #0038A8;
-            color: #fff;
-            padding: 10px 0;
-            font-size: 0.8em;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .flag-container { display: none; }
-
-            .footer-flags {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 20px;
-            }
-
-            .footer-flags img {
-                width: 40px;
-                height: auto;
-                margin: 0 10px;
-            }
-
-            .imagenes-container img {
-                width: 80%;
-                max-width: 300px;
-            }
-        }
-    </style>
+  </style>
 </head>
-<body>
+<body class="light-mode">
 
-    <!-- BOTÓN MENÚ -->
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="top-buttons">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
 
-    <!-- MENÚ DESLIZANTE -->
-    <nav id="sideMenu">
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#historia">Historia</a></li>
-            <li><a href="#imagenes">Imágenes</a></li>
-            <li><a href="#video">Video</a></li>
-            <li><a href="#footer">Créditos</a></li>
-        </ul>
-    </nav>
+  <!-- MENÚ LATERAL -->
+  <nav id="sideMenu">
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#imagenes">Imágenes</a></li>
+      <li><a href="#video">Video</a></li>
+      <li><a href="#footer">Créditos</a></li>
+    </ul>
+  </nav>
 
-    <!-- BOTÓN IR ARRIBA -->
-    <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+  <!-- CONTENIDO -->
+<!-- Sección: Inicio -->
+<div class="container" id="inicio">
+  <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
+  <p>¡Bienvenido a nuestro proyecto escolar!</p>
+</div>
 
-    <!-- BANDERAS LATERALES -->
-    <div class="flag-container left-flags">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
+<!-- Sección: Historia -->
+<div class="container" id="historia">
+  <h2>Historia del Proyecto</h2>
+  <p>Esta es la historia de cómo iniciamos con la idea de armar una PC basada en el sueldo mínimo...</p>
+</div>
+
+<!-- Sección: Imágenes -->
+<div class="container" id="imagenes">
+  <h2>Galería de imágenes</h2>
+  <div class="imagenes-container">
+    <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
+    <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
+  </div>
+</div>
+
+<!-- Sección: Video -->
+<div class="container" id="video">
+  <h2>Video del proyecto</h2>
+  <video controls width="100%" style="max-width: 500px; border: 2px solid #0038A8; border-radius: 10px;">
+    <source src="video/proyecto.mp4" type="video/mp4">
+    Tu navegador no soporta el video.
+  </video>
+</div>
+
+<!-- Sección: Créditos -->
+<footer id="footer">
+  <div class="container">
+    <h2>Créditos</h2>
+    <p>Desarrollado por Iván Azuaga, Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
+    <div class="footer-flags">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay" width="40">
     </div>
-    <div class="flag-container right-flags">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
-    </div>
+  </div>
+</footer>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <h1 id="inicio">PROYECTO DE PC SUELDO MÍNIMO</h1>
-    <h2>Descubre todos los pasos de este proyecto.</h2>
 
-    <div class='container' id="historia">
-        <h3>Historia del Proyecto</h3>
-        <p>Aquí va la historia del proyecto.</p>
+  <!-- JS PARA FUNCIONALIDAD -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("sideMenu").classList.toggle("active");
+    }
 
-        <div class="imagenes-container" id="imagenes">
-            <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
-            <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
-        </div>
-    </div>
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode", !isDark);
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
 
-    <!-- SECCIÓN VIDEO -->
-    <div class="container" id="video">
-        <h3>Video del Proyecto</h3>
-        <p>Mirá cómo se llevó a cabo nuestro proyecto paso a paso:</p>
-        <div class="video-wrapper">
-            <!-- Reemplazá el link abajo por el enlace real al subir tu video -->
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/TU_VIDEO_ID"
-                title="Video del proyecto" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-    </div>
+    window.onload = () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.body.classList.add(savedTheme + "-mode");
+    };
+  </script>
 
-    <!-- PIE DE PÁGINA - CRÉDITOS -->
-    <footer id="footer">
-        <div class="container" style="background-color: #002A70; color: white;">
-            <h3 style="color: #FFCE00; text-align: center;">Créditos del Proyecto</h3>
-            <p style="font-size: 0.75em;">Desarrollado por los alumnos:</p>
-            <ul style="list-style: none; padding: 0;">
-                <li>🎮 Iván Azuaga</li>
-                <li>🧠 Diego Rojas</li>
-                <li>💻 Carlos Bernal</li>
-            </ul>
-            <p style="margin-top: 10px;">Proyecto Escolar 2025 - Paraguay</p>
-            <div class="footer-flags">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay">
-            </div>
-        </div>
-    </footer>
-
-    <!-- SCRIPT -->
-    <script>
-        function toggleMenu() {
-            document.getElementById('sideMenu').classList.toggle('active');
-        }
-
-        window.onscroll = function () {
-            const btn = document.getElementById('scrollTopBtn');
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
 </body>
 </html>

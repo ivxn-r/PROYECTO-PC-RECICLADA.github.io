@@ -171,3 +171,66 @@ footer {
     height: 100%;
     border-radius: 10px;
 }
+/* BOTONES SUPERIORES */
+.top-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.menu-toggle, .theme-toggle {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0038A8;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.7em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px #FFCE00;
+    transition: background-color 0.3s ease;
+}
+
+.menu-toggle:hover, .theme-toggle:hover {
+    background-color: #002060;
+}
+
+/* MODO OSCURO */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1f1f1f;
+    border-color: #555;
+}
+
+body.dark-mode h1 {
+    color: #FFCE00;
+    text-shadow: 2px 2px #0038A8;
+}
+
+body.dark-mode footer {
+    background-color: #1c1c1c;
+}
+
+body.dark-mode .download-btn {
+    background-color: #444;
+}
+
+body.dark-mode a, body.dark-mode .download-btn {
+    color: #FFCE00;
+}
+
+/* ANIMACIÓN SUAVE AL CAMBIAR */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+html {
+  scroll-behavior: smooth;
+}
