@@ -6,7 +6,6 @@
   <title>PC Sueldo Mínimo</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    /* Animaciones */
     @keyframes slideIn {
       from {
         transform: translateY(-50px);
@@ -38,7 +37,6 @@
       }
     }
 
-    /* General */
     body {
       font-family: 'Press Start 2P', cursive;
       background-color: #f0f0f0;
@@ -74,7 +72,6 @@
       background-color: #002060;
     }
 
-    /* Menú lateral */
     #sideMenu {
       position: fixed;
       top: 0;
@@ -133,7 +130,6 @@
       color: #FFCE00;
     }
 
-    /* Contenedores */
     .container {
       padding: 20px;
       max-width: 600px;
@@ -145,7 +141,6 @@
       animation: scaleUp 1.5s ease-in-out;
     }
 
-    /* Títulos */
     h1, h2, h3 {
       text-align: center;
       color: #0038A8;
@@ -153,12 +148,10 @@
       animation: slideIn 1.5s ease-out;
     }
 
-    /* Desplazamiento suave */
     html {
       scroll-behavior: smooth;
     }
 
-    /* Ajuste de visualización en pantallas pequeñas */
     @media (max-width: 768px) {
       .menu-toggle {
         font-size: 18px;
@@ -166,7 +159,6 @@
       }
     }
 
-    /* Estilo para las imágenes */
     .imagenes-container {
       display: flex;
       flex-wrap: wrap;
@@ -185,7 +177,6 @@
       animation: fadeIn 1.5s ease-in-out;
     }
 
-    /* Modal para agrandar imagen */
     .modal {
       display: none;
       position: fixed;
@@ -209,13 +200,11 @@
 </head>
 <body class="light-mode">
 
-  <!-- BOTONES DE ACCIÓN -->
   <div class="top-buttons">
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </div>
 
-  <!-- MENÚ LATERAL -->
   <nav id="sideMenu">
     <ul>
       <li><a href="#inicio">Inicio</a></li>
@@ -226,7 +215,6 @@
     </ul>
   </nav>
 
-  <!-- SECCIONES -->
   <div class="container" id="inicio">
     <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
     <p>¡Bienvenido a nuestro proyecto escolar!</p>
@@ -263,12 +251,10 @@
     </div>
   </footer>
 
-  <!-- Modal de imagen -->
   <div id="imageModal" class="modal" onclick="closeModal()">
     <img class="modal-content" id="modalImage">
   </div>
 
-  <!-- JS -->
   <script>
     function toggleMenu() {
       document.getElementById("sideMenu").classList.toggle("active");
@@ -286,7 +272,6 @@
       document.body.classList.add(savedTheme + "-mode");
     };
 
-    // Agrandar imagen al hacer clic
     document.querySelectorAll('.imagenes-container img').forEach(img => {
       img.addEventListener('click', function () {
         const modal = document.getElementById('imageModal');
