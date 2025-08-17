@@ -4,49 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PC Sueldo Mínimo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
   <style>
+
     @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     @keyframes scaleUp {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #f0f0f0;
-      color: #333;
+
+    body, p, a, button, li {
+      font-family: 'Ubuntu', sans-serif !important;
       margin: 0;
       padding: 0;
       transition: background-color 0.3s, color 0.3s;
+      font-size: 18px; 
     }
 
-    /* Botones de acción */
+    body {
+      background-color: #E3DADA;
+      color: #333;
+    }
+
+
     .top-buttons {
       position: fixed;
       top: 10px;
@@ -57,20 +52,20 @@
     }
 
     .menu-toggle, .theme-toggle {
-      background-color: #0038A8;
+      background-color: #E3DADA;
       color: white;
       border: none;
       padding: 10px;
-      font-size: 12px;
+      font-size: 15px; 
       border-radius: 4px;
       cursor: pointer;
-      font-family: 'Press Start 2P', cursive;
-      box-shadow: 2px 2px 0px #FFCE00;
+      box-shadow: 2px 2px 0px #E3DADA;
     }
 
     .menu-toggle:hover, .theme-toggle:hover {
       background-color: #002060;
     }
+
 
     #sideMenu {
       position: fixed;
@@ -86,49 +81,17 @@
       z-index: 99;
     }
 
-    #sideMenu.active {
-      right: 0;
-    }
+    #sideMenu.active { right: 0; }
 
-    #sideMenu ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    #sideMenu li {
-      margin: 20px;
-    }
-
+    #sideMenu ul { list-style: none; padding: 0; }
+    #sideMenu li { margin: 20px; }
     #sideMenu a {
       text-decoration: none;
       color: #0038A8;
-      font-size: 12px;
+      font-size: 15px;
+      font-family: 'Ubuntu', sans-serif;
     }
 
-    /* Modo oscuro */
-    body.dark-mode {
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-
-    body.dark-mode .container {
-      background-color: #1f1f1f;
-      border-color: #444;
-    }
-
-    body.dark-mode h1 {
-      color: #FFCE00;
-      text-shadow: 2px 2px #0038A8;
-    }
-
-    body.dark-mode #sideMenu {
-      background-color: #1f1f1f;
-      border-color: #FFCE00;
-    }
-
-    body.dark-mode #sideMenu a {
-      color: #FFCE00;
-    }
 
     .container {
       padding: 20px;
@@ -141,23 +104,34 @@
       animation: scaleUp 1.5s ease-in-out;
     }
 
-    h1, h2, h3 {
+
+    h1 {
       text-align: center;
       color: #0038A8;
-      text-shadow: 2px 2px #FFCE00;
+      text-shadow: 2px 2px #272A36;
       animation: slideIn 1.5s ease-out;
+      font-family: 'Oswald', sans-serif !important;
+      font-size: 60px;
     }
 
-    html {
-      scroll-behavior: smooth;
+    h2 {
+      text-align: center;
+      color: #0038A8;
+      text-shadow: 2px 2px #272A36;
+      animation: slideIn 1.5s ease-out;
+      font-family: 'Oswald', sans-serif !important;
+      font-size: 45px;
     }
 
-    @media (max-width: 768px) {
-      .menu-toggle {
-        font-size: 18px;
-        padding: 12px 15px;
-      }
+    h3 {
+      text-align: center;
+      color: #0038A8;
+      text-shadow: 2px 2px #272A36;
+      animation: slideIn 1.5s ease-out;
+      font-family: 'Oswald', sans-serif !important;
+      font-size: 35px;
     }
+
 
     .imagenes-container {
       display: flex;
@@ -168,7 +142,7 @@
     }
 
     .imagenes-container img {
-      width: 120px;
+      width: 500px;
       height: auto;
       border: 2px solid #0038A8;
       border-radius: 10px;
@@ -176,6 +150,7 @@
       cursor: pointer;
       animation: fadeIn 1.5s ease-in-out;
     }
+
 
     .modal {
       display: none;
@@ -196,60 +171,94 @@
       border: 5px solid #FFCE00;
       border-radius: 10px;
     }
+
+
+    html { scroll-behavior: smooth; }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        font-size: 22px;
+        padding: 12px 15px;
+      }
+    }
+
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .container { background-color: #1f1f1f; border-color: #444; }
+    body.dark-mode h1 { color: #FFCE00; text-shadow: 2px 2px #0038A8; }
+    body.dark-mode #sideMenu { background-color: #1f1f1f; border-color: #FFCE00; }
+    body.dark-mode #sideMenu a { color: #FFCE00; }
   </style>
 </head>
 <body class="light-mode">
 
-  <div class="top-buttons">
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </div>
+
+ <div class="top-buttons">
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌗</button>
+  <button id="lang-toggle" onclick="toggleLanguage()">Guaraní</button>
+</div>
 
   <nav id="sideMenu">
     <ul>
       <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#historia">Historia</a></li>
+      <li><a href="#historia">Comienzo</a></li>
       <li><a href="#imagenes">Imágenes</a></li>
       <li><a href="#video">Video</a></li>
       <li><a href="#footer">Créditos</a></li>
     </ul>
   </nav>
 
+
   <div class="container" id="inicio">
-    <h1>PROYECTO DE PC SUELDO MÍNIMO</h1>
-    <p>¡Bienvenido a nuestro proyecto escolar!</p>
+    <h1>PROYECTO PC RECICLADA</h1>
   </div>
 
   <div class="container" id="historia">
-    <h2>Historia del Proyecto</h2>
-    <p>Esta es la historia de cómo iniciamos con la idea de armar una PC basada en el sueldo mínimo...</p>
+    <h2>Comienzo del Proyecto</h2>
+    <p>Hola, somos: Carlos Bernal, Diego Rojas e Ivan Azuaga, y somos alumnos del Colegio Técnico y Centro de Entrenamiento Vocacional Presidente Carlos Antonio López.</p> 
+
+<p>Juntos presentamos este proyecto, el cual está enfocado en algo que suele pasar desapercibido, pero que es un problema mundial: la contaminación que producen los componentes electrónicos y cómo estos pueden ser reutilizados para crear equipos totalmente funcionales y que, además, ayudan a disminuir la obsolescencia que poseen.</p> 
+
+<p>Esta idea nos surgió luego de darnos cuenta de que aquellos componentes que creemos que ya no sirven y simplemente desechamos, afectan negativamente al planeta.</p>
+
+<p>En esta ocasión decidimos buscar componentes en desuso y así poder armar una computadora totalmente funcional, dando una segunda vida a estos mismos componentes.</p>
+
+<p>En el siguiente video relatamos todo lo que realizamos y, además, explicamos de manera resumida de qué manera se pueden reciclar los componentes y la función que cumple cada uno.</p>
+
   </div>
 
   <div class="container" id="imagenes">
-    <h2>Galería de imágenes</h2>
+    <h2>Galería de imágenes </h2>
     <div class="imagenes-container">
-      <img src="imagenes/images.jpg" alt="Imagen de una PC de referencia">
-      <img src="imagenes/emoji.jpg" alt="Imagen del alumno">
-      <img src="imagenes/alumno-nuevo.jpg" alt="Nueva foto del alumno">
+      <img src="imagenes/contaminacion.jpg" alt="contaminacion">
+      <img src="imagenes/proceso.jpg" alt="Imagen del proceso">
+      <img src="imagenes/pcterminada.jpg" alt="Foto de la PC terminada">
     </div>
   </div>
 
   <div class="container" id="video">
     <h2>Video del proyecto</h2>
-    <video controls width="100%" style="max-width: 500px; border: 2px solid #0038A8; border-radius: 10px;">
+    <video controls width="100%" style="max-width: 500px; border: 2px solid #000000; border-radius: 10px;">
       <source src="video/proyecto.mp4" type="video/mp4">
     </video>
   </div>
 
+
   <footer id="footer">
     <div class="container">
       <h2>Créditos</h2>
-      <p>Desarrollado por Iván Azuaga, Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
+      <p>Desarrollado por Ivan Azuaga acompañado de Diego Rojas y Carlos Bernal - Proyecto Escolar 2025</p>
       <div class="footer-flags">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay" width="40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" alt="Bandera de Paraguay" width="60">
       </div>
     </div>
   </footer>
+
 
   <div id="imageModal" class="modal" onclick="closeModal()">
     <img class="modal-content" id="modalImage">
@@ -285,6 +294,64 @@
       document.getElementById('imageModal').style.display = "none";
     }
   </script>
+<script>
+  const dictionary = {
+    "Inicio": "Ñepyrũ",
+    "Comienzo": "Ñepyrũrã",
+    "Comienzo del Proyecto": "Ñepyrũrã rehegua tembiapo",
+    "Imágenes": "Ta’anga",
+    "Galería de imágenes": "Ta’anga ñemuhára",
+    "Video": "Ta’ãngamýi",
+    "Video del proyecto": "Tembiapo ta’ãngamýi",
+    "Créditos": "Ipahápe",
+    "Desarrollado por Ivan Azuaga acompañado de Diego Rojas y Carlos Bernal - Proyecto Escolar 2025":
+      "Ombojapóva Ivan Azuaga oykóva Diego Rojas ha Carlos Bernal rehe- Tembiapo Mbo’ehao 2025",
+    "Hola, somos: Carlos Bernal, Diego Rojas e Ivan Azuaga, y somos alumnos del Colegio Técnico y Centro de Entrenamiento Vocacional Presidente Carlos Antonio López.":
+      "Mba’éichapa, ore hína: Carlos Bernal, Diego Rojas ha Iván Azuaga, ore hína temimbo’e Colegio Técnico ha Centro de Entrenamiento Vocacional Presidente Carlos Antonio López-pe.",
+    "Juntos presentamos este proyecto, el cual está enfocado en algo que suele pasar desapercibido, pero que es un problema mundial: la contaminación que producen los componentes electrónicos y cómo estos pueden ser reutilizados para crear equipos totalmente funcionales y que, además, ayudan a disminuir la obsolescencia que poseen.":
+      "Ore rembiapo oñe’ẽ peteĩ mba’e rehe ikatu ndaiporivéima ñamotenonde, ha katu hína peteĩ apañuái yvypóra rehegua: umi mba’e’okarape electrónico ojapo ñemongy’a ha ikatu ojeporu jey omoheñói hag̃ua mba’e’okarape iporãitéva ha avei omboguejy pe ikangy pya’e.",
+    "Esta idea nos surgió luego de darnos cuenta de que aquellos componentes que creemos que ya no sirven y simplemente desechamos, afectan negativamente al planeta.":
+      "Ko apytere oúva ñande rehe rojekuaa rire umi mba’e’okarape roimo’ã ndojepuruvéima ha romombo rei, ombyai tekohápe.",
+    "En esta ocasión decidimos buscar componentes en desuso y así poder armar una computadora totalmente funcional, dando una segunda vida a estos mismos componentes.":
+      "Ko’ágã roiporavo rojuhu hag̃ua umi mba’e’okarape ndojepuruvéima ha roguenoĩ peteĩ computadora iporãite ha ome’ẽ jey peteĩ jeikove mokõiha umi mba’e’okarape-pe.",
+    "En el siguiente video relatamos todo lo que realizamos y, además, explicamos de manera resumida de qué manera se pueden reciclar los componentes y la función que cumple cada uno.":
+      "Upe ta’ãngamýipe romombe’u opa mba’e rojapo ha rohesa’ỹijo michĩhápe mba’éichapa ikatu ojepuru jey umi mba’e’okarape ha mba’épa ojapo peteĩteĩva."
+  };
 
+  const originalTexts = new Map();
+  let currentLang = "es"; 
+
+  function saveOriginalTexts() {
+    const elements = document.querySelectorAll("h1,h2,h3,p,a,li");
+    elements.forEach(el => {
+      if (!originalTexts.has(el)) {
+        originalTexts.set(el, el.innerText.trim());
+      }
+    });
+  }
+
+  function toggleLanguage() {
+    saveOriginalTexts();
+    const elements = document.querySelectorAll("h1,h2,h3,p,a,li");
+    const button = document.getElementById("lang-toggle");
+
+    if (currentLang === "es") {
+      elements.forEach(el => {
+        let text = el.innerText.trim();
+        if (dictionary[text]) {
+          el.innerText = dictionary[text];
+        }
+      });
+      button.innerText = "Castellano"; 
+      currentLang = "gn";
+    } else {
+      originalTexts.forEach((text, el) => {
+        el.innerText = text;
+      });
+      button.innerText = "Guaraní";
+      currentLang = "es";
+    }
+  }
+</script>
 </body>
 </html>
