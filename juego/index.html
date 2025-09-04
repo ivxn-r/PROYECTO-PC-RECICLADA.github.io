@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECICLAJE RUSH-Reciclando Juntos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            max-width: 800px;
+            max-height: 600px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #87CEEB 0%, #98D8C8 100%);
+            border: 3px solid #2c3e50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        #gameInfo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .info-item {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .info-item span {
+            color: #e74c3c;
+            font-size: 20px;
+        }
+
+        #lives {
+            color: #e74c3c;
+        }
+
+        .falling-object {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            font-size: 35px;
+            text-align: center;
+            line-height: 50px;
+            cursor: grab;
+            transition: transform 0.1s;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .falling-object.trash {
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .falling-object.electronic {
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
+        }
+
+        .container {
+            position: absolute;
+            bottom: 20px;
+            width: 100px;
+            height: 120px;
+            background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+            border: 3px solid #333;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: move;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .container:active {
+            transform: scale(1.05);
+        }
+
+        .container.active {
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+        }
+
+        #trashContainer {
+            left: 150px;
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+        }
+
+        #electronicContainer {
+            right: 150px;
+            background: linear-gradient(145deg, #27ae60, #229954);
+        }
+
+        .container-icon {
+            font-size: 50px;
+            margin-bottom: 5px;
+        }
+
+        .container-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        .score-popup {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            pointer-events: none;
+            animation: scoreFloat 1s ease-out forwards;
+            z-index: 200;
+        }
+
+        .score-popup.positive {
+            color: #27ae60;
+        }
+
+        .score-popup.negative {
+            color: #e74c3c;
+        }
+
+        @keyframes scoreFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #startScreen h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        #startScreen p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: linear-gradient(145deg, #27ae60, #229954);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        #gameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #gameOverScreen h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+
+        #finalScore {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        #educationalMessage {
+            font-size: 16px;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .mobile-controls {
+            display: none;
+            position: absolute;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            gap: 20px;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 3px solid #333;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .control-btn:active {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            #gameContainer {
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+
+            .mobile-controls {
+                display: flex;
+            }
+
+            #gameInfo {
+                font-size: 14px;
+            }
+
+            .info-item span {
+                font-size: 16px;
+            }
+
+            #startScreen h1 {
+                font-size: 32px;
+            }
+
+            #startScreen p {
+                font-size: 16px;
+            }
+
+            .container {
+                width: 80px;
+                height: 100px;
+            }
+
+            .container-icon {
+                font-size: 40px;
+            }
+
+            #trashContainer {
+                left: 50px;
+            }
+
+            #electronicContainer {
+                right: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="gameInfo">
+            <div class="info-item">🎯 Puntos: <span id="score">0</span></div>
+            <div class="info-item">⏱️ Tiempo: <span id="timer">60</span>s</div>
+            <div class="info-item">❤️ Vidas: <span id="lives">3</span></div>
+        </div>
+
+        <div id="trashContainer" class="container">
+            <div class="container-icon">🗑️</div>
+            <div class="container-label">Basura Común</div>
+        </div>
+
+        <div id="electronicContainer" class="container">
+            <div class="container-icon">♻️</div>
+            <div class="container-label">Electrónicos</div>
+        </div>
+
+        <div class="mobile-controls">
+            <button class="control-btn" id="leftBtn">⬅️</button>
+            <button class="control-btn" id="rightBtn">➡️</button>
+        </div>
+
+        <div id="startScreen">
+            <h1>♻️ Reciclaje Rush 🎮</h1>
+            <p>
+                ¡Ayuda a salvar el planeta reciclando lo que no usas!<br><br>
+                📱 <strong>Celulares:</strong> Arrastra los contenedores o usa los botones<br>
+                💻 <strong>PC:</strong> Usa las flechas ← → o arrastra con el mouse<br><br>
+                🎯 Clasifica correctamente: +10 puntos<br>
+                ❌ Error: -5 puntos y pierdes una vida<br><br>
+                ¡La velocidad aumentará con el tiempo!
+            </p>
+            <button class="btn" onclick="startGame()">JUGAR</button>
+        </div>
+
+                <div id="gameOverScreen">
+            <h2>🏆 Juego Terminado 🏆</h2>
+            <div id="finalScore"></div>
+            <div id="educationalMessage"></div>
+            <button class="btn" onclick="resetGame()">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        
+        const GAME_CONFIG = {
+            GAME_DURATION: 60,          
+            INITIAL_LIVES: 5,           
+            INITIAL_FALL_SPEED: 2,      
+            SPEED_INCREMENT: 0.5,        
+            SPAWN_INTERVAL: 1500,        
+            CORRECT_SCORE: 10,           
+            WRONG_SCORE: -5,             
+            CONTAINER_SPEED: 15          
+        };
+
+        const TRASH_ITEMS = [
+            { emoji: '📄', name: 'Papel' },
+            { emoji: '🍌', name: 'Cáscara de banana' },
+            { emoji: '🥤', name: 'Vaso plástico' },
+            { emoji: '📦', name: 'Caja de cartón' },
+            { emoji: '🍎', name: 'Restos de comida' },
+            { emoji: '📰', name: 'Periódico' }
+        ];
+
+        const ELECTRONIC_ITEMS = [
+            { emoji: '💾', name: 'Disco duro' },
+            { emoji: '🖱️', name: 'Mouse' },
+            { emoji: '⌨️', name: 'Teclado' },
+            { emoji: '📱', name: 'Teléfono' },
+            { emoji: '💿', name: 'CD/DVD' },
+            { emoji: '🔋', name: 'Batería' },
+            { emoji: '🖥️', name: 'Monitor' },
+            { emoji: '🎮', name: 'Control de juegos' }
+        ];
+
+        let gameState = {
+            isPlaying: false,
+            score: 0,
+            lives: GAME_CONFIG.INITIAL_LIVES,
+            timeRemaining: GAME_CONFIG.GAME_DURATION,
+            currentSpeed: GAME_CONFIG.INITIAL_FALL_SPEED,
+            fallingObjects: [],
+            gameLoopId: null,
+            spawnIntervalId: null,
+            timerIntervalId: null,
+            speedIntervalId: null
+        };
+
+        let containers = {
+            trash: null,
+            electronic: null
+        };
+
+        
+        class FallingObject {
+            constructor(type, item) {
+                this.type = type; // 'trash' o 'electronic'
+                this.item = item;
+                this.x = Math.random() * (window.innerWidth - 50);
+                this.y = -50;
+                this.speed = gameState.currentSpeed;
+                this.element = this.createElement();
+                this.isAlive = true;
+            }
+
+            createElement() {
+                const element = document.createElement('div');
+                element.className = `falling-object ${this.type}`;
+                element.style.left = this.x + 'px';
+                element.style.top = this.y + 'px';
+                element.textContent = this.item.emoji;
+                element.title = this.item.name; // Tooltip con el nombre
+                document.getElementById('gameContainer').appendChild(element);
+                return element;
+            }
+
+            update() {
+                if (!this.isAlive) return;
+                
+                this.y += this.speed;
+                this.element.style.top = this.y + 'px';
+
+                if (this.y > window.innerHeight) {
+                    this.destroy();
+                    return false;
+                }
+
+                this.checkCollisions();
+                return true;
+            }
+
+            checkCollisions() {
+                const objRect = this.element.getBoundingClientRect();
+                
+                const trashRect = containers.trash.getBoundingClientRect();
+                if (this.isColliding(objRect, trashRect)) {
+                    this.handleCollection('trash');
+                    return;
+                }
+
+                const elecRect = containers.electronic.getBoundingClientRect();
+                if (this.isColliding(objRect, elecRect)) {
+                    this.handleCollection('electronic');
+                    return;
+                }
+            }
+
+            isColliding(rect1, rect2) {
+                return rect1.left < rect2.right &&
+                       rect1.right > rect2.left &&
+                       rect1.top < rect2.bottom &&
+                       rect1.bottom > rect2.top - 20;
+            }
+
+            handleCollection(containerType) {
+                const isCorrect = 
+                    (this.type === 'trash' && containerType === 'trash') ||
+                    (this.type === 'electronic' && containerType === 'electronic');
+
+                if (isCorrect) {
+                    updateScore(GAME_CONFIG.CORRECT_SCORE);
+                    showScorePopup('+' + GAME_CONFIG.CORRECT_SCORE, this.x, this.y, true);
+                    animateContainer(containerType, true);
+                } else {
+                    updateScore(GAME_CONFIG.WRONG_SCORE);
+                    updateLives(-1);
+                    showScorePopup(GAME_CONFIG.WRONG_SCORE, this.x, this.y, false);
+                    animateContainer(containerType, false);
+                    shakeScreen();
+                }
+
+                this.destroy();
+            }
+
+            destroy() {
+                if (this.element && this.element.parentNode) {
+                    this.element.remove();
+                }
+                this.isAlive = false;
+            }
+        }
+
+
+        function initGame() {
+            containers.trash = document.getElementById('trashContainer');
+            containers.electronic = document.getElementById('electronicContainer');
+            
+            setupControls();
+            setupDragAndDrop();
+        }
+
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            resetGameState();
+            
+            gameState.isPlaying = true;
+            
+            startGameLoop();
+            startSpawning();
+            startTimer();
+            startSpeedIncrement();
+        }
+
+        function resetGameState() {
+            gameState.score = 0;
+            gameState.lives = GAME_CONFIG.INITIAL_LIVES;
+            gameState.timeRemaining = GAME_CONFIG.GAME_DURATION;
+            gameState.currentSpeed = GAME_CONFIG.INITIAL_FALL_SPEED;
+            
+            gameState.fallingObjects.forEach(obj => obj.destroy());
+            gameState.fallingObjects = [];
+            
+            updateUI();
+        }
+
+        function startGameLoop() {
+            gameState.gameLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        function gameLoop() {
+            if (!gameState.isPlaying) return;
+            
+            gameState.fallingObjects = gameState.fallingObjects.filter(obj => obj.update());
+            
+            gameState.gameLoopId = requestAnimationFrame(gameLoop);
+        }
+        
+        function startSpawning() {
+            spawnObject();
+            
+            gameState.spawnIntervalId = setInterval(() => {
+                if (gameState.isPlaying) {
+                    spawnObject();
+                }
+            }, GAME_CONFIG.SPAWN_INTERVAL);
+        }
+
+        function spawnObject() {
+            const isTrash = Math.random() < 0.5;
+            const items = isTrash ? TRASH_ITEMS : ELECTRONIC_ITEMS;
+            const type = isTrash ? 'trash' : 'electronic';
+            const item = items[Math.floor(Math.random() * items.length)];
+            
+            const obj = new FallingObject(type, item);
+            gameState.fallingObjects.push(obj);
+        }
+
+        function startTimer() {
+            gameState.timerIntervalId = setInterval(() => {
+                gameState.timeRemaining--;
+                document.getElementById('timer').textContent = gameState.timeRemaining;
+                
+                if (gameState.timeRemaining <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function startSpeedIncrement() {
+            gameState.speedIntervalId = setInterval(() => {
+                if (gameState.isPlaying) {
+                    gameState.currentSpeed += GAME_CONFIG.SPEED_INCREMENT;
+                    console.log('Velocidad aumentada a:', gameState.currentSpeed);
+                }
+            }, 10000); 
+        }
+
+        function setupControls() {
+            document.addEventListener('keydown', (e) => {
+                if (!gameState.isPlaying) return;
+                
+                const trashPos = parseInt(containers.trash.style.left || '150');
+                const elecPos = parseInt(containers.electronic.style.right || '150');
+                
+                if (e.key === 'ArrowLeft') {
+                    moveContainer('trash', Math.max(10, trashPos - GAME_CONFIG.CONTAINER_SPEED));
+                    moveContainer('electronic', Math.max(10, elecPos - GAME_CONFIG.CONTAINER_SPEED));
+                } else if (e.key === 'ArrowRight') {
+                    const maxPos = window.innerWidth - 110;
+                    moveContainer('trash', Math.min(maxPos, trashPos + GAME_CONFIG.CONTAINER_SPEED));
+                    moveContainer('electronic', Math.min(maxPos, elecPos + GAME_CONFIG.CONTAINER_SPEED));
+                }
+            });
+
+            document.getElementById('leftBtn')?.addEventListener('click', () => {
+                if (!gameState.isPlaying) return;
+                const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+                document.dispatchEvent(event);
+            });
+
+            document.getElementById('rightBtn')?.addEventListener('click', () => {
+                if (!gameState.isPlaying) return;
+                const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+                document.dispatchEvent(event);
+            });
+        }
+
+        function setupDragAndDrop() {
+            [containers.trash, containers.electronic].forEach(container => {
+                let isDragging = false;
+                let startX = 0;
+                let containerStartX = 0;
+
+                container.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', endDrag);
+
+                container.addEventListener('touchstart', startDrag);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('touchend', endDrag);
+
+                function startDrag(e) {
+                    if (!gameState.isPlaying) return;
+                    isDragging = true;
+                    startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                    containerStartX = container.offsetLeft;
+                    container.style.cursor = 'grabbing';
+                }
+
+                function drag(e) {
+                    if (!isDragging || !gameState.isPlaying) return;
+                    e.preventDefault();
+                    
+                    const currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                    const deltaX = currentX - startX;
+                    let newX = containerStartX + deltaX;
+                    
+                    newX = Math.max(10, Math.min(window.innerWidth - 110, newX));
+                    
+                    if (container === containers.trash) {
+                        container.style.left = newX + 'px';
+                    } else {
+                        container.style.right = (window.innerWidth - newX - 100) + 'px';
+                    }
+                }
+
+                function endDrag() {
+                    isDragging = false;
+                    container.style.cursor = 'move';
+                }
+            });
+        }
+
+        function moveContainer(type, position) {
+            if (type === 'trash') {
+                containers.trash.style.left = position + 'px';
+            } else {
+                containers.electronic.style.right = position + 'px';
+            }
+        }
+        function updateScore(points) {
+            gameState.score += points;
+            gameState.score = Math.max(0, gameState.score); // No permitir puntajes negativos
+            document.getElementById('score').textContent = gameState.score;
+        }
+
+        function updateLives(change) {
+            gameState.lives += change;
+            document.getElementById('lives').textContent = gameState.lives;
+            
+            if (gameState.lives <= 0) {
+                endGame();
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('lives').textContent = gameState.lives;
+            document.getElementById('timer').textContent = gameState.timeRemaining;
+        }
+
+
+        function showScorePopup(text, x, y, isPositive) {
+            const popup = document.createElement('div');
+            popup.className = `score-popup ${isPositive ? 'positive' : 'negative'}`;
+            popup.textContent = text;
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+            
+            document.getElementById('gameContainer').appendChild(popup);
+            
+            setTimeout(() => popup.remove(), 1000);
+        }
+
+        function animateContainer(type, isCorrect) {
+            const container = type === 'trash' ? containers.trash : containers.electronic;
+            container.classList.add('active');
+            
+            if (!isCorrect) {
+                container.style.background = 'linear-gradient(145deg, #e74c3c, #c0392b)';
+                setTimeout(() => {
+                    container.style.background = type === 'trash' 
+                        ? 'linear-gradient(145deg, #95a5a6, #7f8c8d)'
+                        : 'linear-gradient(145deg, #27ae60, #229954)';
+                }, 300);
+            }
+            
+            setTimeout(() => container.classList.remove('active'), 300);
+        }
+
+        function shakeScreen() {
+            const container = document.getElementById('gameContainer');
+            container.style.animation = 'shake 0.5s';
+            setTimeout(() => container.style.animation = '', 500);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function endGame() {
+            gameState.isPlaying = false;
+            
+            cancelAnimationFrame(gameState.gameLoopId);
+            clearInterval(gameState.spawnIntervalId);
+            clearInterval(gameState.timerIntervalId);
+            clearInterval(gameState.speedIntervalId);
+            
+            showGameOverScreen();
+        }
+
+        function showGameOverScreen() {
+            const gameOverScreen = document.getElementById('gameOverScreen');
+            const finalScore = document.getElementById('finalScore');
+            const educationalMessage = document.getElementById('educationalMessage');
+            
+            finalScore.innerHTML = `🏅 Puntuación Final: ${gameState.score} puntos`;
+            let message = '';
+            if (gameState.score >= 200) {
+                message = `
+                    <h3>🌟 ¡Excelente trabajo! 🌟</h3>
+                    <p>Eres un campeón del reciclaje. ¿Sabías que el reciclaje de componentes electrónicos es crucial para nuestro planeta?</p>
+                    <p> Los dispositivos electrónicos contienen metales preciosos como oro, plata y cobre que pueden ser recuperados.</p>
+                    <p>El reciclaje electrónico evita que sustancias tóxicas como plomo y mercurio contaminen el suelo y el agua.</p>
+                    <p> ¡Sigue así y comparte este conocimiento con otros!</p>
+                `;
+            } else if (gameState.score >= 100) {
+                message = `
+                    <h3>👏 ¡Buen trabajo! 👏</h3>
+                    <p>Tienes buenos conocimientos sobre reciclaje. Aquí hay algunos datos importantes:</p>
+                    <p>💻 Solo el 20% de los desechos electrónicos se reciclan adecuadamente a nivel mundial.</p>
+                    <p>🔋 Una sola batería de botón puede contaminar hasta 600,000 litros de agua.</p>
+                    <p>📱 Reciclar 1 millón de teléfonos móviles puede recuperar 35 kg de oro, 350 kg de plata y 15,000 kg de cobre.</p>
+                `;
+            } else {
+                message = `
+                    <h3>💪 ¡Sigue practicando! 💪</h3>
+                    <p>El reciclaje es una habilidad importante. Recuerda estos consejos:</p>
+                    <p>🗑️ La basura orgánica se descompone naturalmente, pero el plástico puede tardar hasta 1000 años.</p>
+                    <p>💾 Los componentes electrónicos NUNCA deben ir a la basura común - contienen materiales peligrosos.</p>
+                    <p>🏭 Busca puntos de reciclaje electrónico en tu ciudad. ¡Cada acción cuenta!</p>
+                `;
+            }
+            
+            educationalMessage.innerHTML = message;
+            gameOverScreen.style.display = 'flex';
+        }
+
+        function resetGame() {
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'flex';
+        }
+        window.addEventListener('DOMContentLoaded', initGame);
+        window.addEventListener('resize', () => {
+            const maxPos = window.innerWidth - 110;
+            if (containers.trash && parseInt(containers.trash.style.left) > maxPos) {
+                containers.trash.style.left = maxPos + 'px';
+            }
+            if (containers.electronic) {
+                const rightPos = parseInt(containers.electronic.style.right);
+                if (rightPos > maxPos) {
+                    containers.electronic.style.right = maxPos + 'px';
+                }
+            }
+        });
+
+        window.debugGame = function() {
+            console.log('=== Estado del Juego ===');
+            console.log('Jugando:', gameState.isPlaying);
+            console.log('Puntuación:', gameState.score);
+            console.log('Vidas:', gameState.lives);
+            console.log('Tiempo restante:', gameState.timeRemaining);
+            console.log('Velocidad actual:', gameState.currentSpeed);
+            console.log('Objetos cayendo:', gameState.fallingObjects.length);
+            console.log('========================');
+        };
+
+            window.addLife = function() {
+            if (gameState.isPlaying) {
+                gameState.lives++;
+                document.getElementById('lives').textContent = gameState.lives;
+                console.log('Vida añadida. Total:', gameState.lives);
+            }
+        };
+
+        window.setSpeed = function(speed) {
+            gameState.currentSpeed = speed;
+            console.log('Velocidad cambiada a:', speed);
+        };
+
+        console.log('%c🎮 Reciclaje Rush - Cargado correctamente', 'color: green; font-size: 16px; font-weight: bold;');
+        console.log('%cPara debug, usa: debugGame(), addLife(), setSpeed(numero)', 'color: blue;');
+    </script>
+</body>
+</html>
